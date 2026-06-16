@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../Ciphers/Ciphers.vcxproj" Id="bdffdb8e-97c6-4c39-a49d-26d480317fa9" />
+  <Project Path="AssignmentEncryption.vcxproj" Id="74b1c958-bf3c-435f-8a32-c5d9c00ddee1" />
+</Solution>
