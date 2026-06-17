@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssignmentEncryption.cpp" />
+    <ClCompile Include="Imports.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Imports.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

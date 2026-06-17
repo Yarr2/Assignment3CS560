@@ -2,9 +2,10 @@
 //
 
 #include <iostream>
-#include "Ciphers.h"
+//#include "Ciphers.h"
 #include <string>
-
+#include <windows.h>
+#include "Imports.h"
 
 void process_command(int command, cipher_t*& cipher) {
 
@@ -12,14 +13,15 @@ void process_command(int command, cipher_t*& cipher) {
 	switch (command) {
 	case 0:
 		printf("Help\n");
-		cipher_free(text);
+		cipher_free_dll(text);
 		break;
 	case 1:
 	{
 		printf("Create cipher:\n");
 		printf("Choose cipher:\n\n");
 		printf("1. Ceaser cipher\n");
-		printf("2. Vigener cipher\n\n");
+		printf("2. Vigener cipher\n");
+		printf("3. XOR cipher \n\n");
 		printf("Choose your cipher > ");
 		int variant = 0;
 		std::cin >> variant;
@@ -29,8 +31,8 @@ void process_command(int command, cipher_t*& cipher) {
 			printf("Input key for Ceaser cipher > ");
 			int key = 0;
 			std::cin >> key;
-			cipher_destroy(cipher);
-			cipher = cipher_create_caesar(key);
+			cipher_destroy_dll(cipher);
+			cipher = cipher_create_caesar_dll(key);
 			break;
 		}
 		case 2:
@@ -39,8 +41,8 @@ void process_command(int command, cipher_t*& cipher) {
 			std::string key;
 			printf("Enter key for Vigenere cipher > ");
 			std::cin >> key;
-			cipher_destroy(cipher);
-			cipher = cipher_create_vigenere(key.c_str());
+			cipher_destroy_dll(cipher);
+			cipher = cipher_create_vigenere_dll(key.c_str());
 			break;
 			}
 		case 3: {
@@ -48,11 +50,11 @@ void process_command(int command, cipher_t*& cipher) {
 			std::string key;
 			printf("Enter key for XOR cipher > ");
 			std::cin >> key;
-			cipher_destroy(cipher);
-			cipher = cipher_create_xor(key.c_str());
+			cipher_destroy_dll(cipher);
+			cipher = cipher_create_xor_dll(key.c_str());
 		}
 		}
-		cipher_free(text);
+		cipher_free_dll(text);
 		break;
 	}
 	case 2:
@@ -64,9 +66,9 @@ void process_command(int command, cipher_t*& cipher) {
 		printf("Encrypt message\n");
 		printf("Message > ");
 		std::cin.getline(text, 100);
-		char* encrypted_text = cipher_encrypt(cipher, text);
+		char* encrypted_text = cipher_encrypt_dll(cipher, text);
 		std::cout << "Encrypted text - " << encrypted_text << "\n";
-		cipher_free(encrypted_text);
+		cipher_free_dll(encrypted_text);
 		break;
 	}
 	case 3:
@@ -78,9 +80,9 @@ void process_command(int command, cipher_t*& cipher) {
 		printf("Decrypt message\n");
 		printf("Message > ");
 		std::cin.getline(text, 100);
-		char* decrypted_text = cipher_decrypt(cipher, text);
+		char* decrypted_text = cipher_decrypt_dll(cipher, text);
 		std::cout << "Decrypted text - " << decrypted_text << "\n";
-		cipher_free(decrypted_text);
+		cipher_free_dll(decrypted_text);
 		break;
 	}
 	default:
@@ -92,6 +94,7 @@ void process_command(int command, cipher_t*& cipher) {
 
 int main()
 {
+
 	printf("Welcome to our ciphers\n");
 	cipher_t* cipher = new cipher_t;
 	cipher[0] = NULL;
@@ -103,7 +106,7 @@ int main()
 		char character;
 		scanf_s("%c", &character, 1);
 		if (character == 'P') {
-			cipher_destroy(cipher);
+			cipher_destroy_dll(cipher);
 			printf("Program exited\n");
 			return 0;
 		}
@@ -114,7 +117,7 @@ int main()
 
 		process_command(command, cipher);
 	}
-	cipher_destroy(cipher);
+	cipher_destroy_dll(cipher);
 	return 0;
 
 }

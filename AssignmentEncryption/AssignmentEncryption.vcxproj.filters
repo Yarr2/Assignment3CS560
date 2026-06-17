@@ -13,5 +13,13 @@
     <ClCompile Include="AssignmentEncryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Imports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Imports.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
