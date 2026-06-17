@@ -48,10 +48,10 @@ char* cipher_decrypt(cipher_t* cipher, const char* text) {
 	return decrypted_text;
 
 }
-void cipher_destroy(cipher_t* cipher) {
+void cipher_destroy(cipher_t cipher) {
 	delete cipher;
 }
 
 void cipher_free(char* str) {
-	free(str);
+	delete str;
 }
