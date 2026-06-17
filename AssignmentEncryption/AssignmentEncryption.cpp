@@ -83,8 +83,7 @@ void process_command(int command, cipher_t*& cipher) {
 int main()
 {
 	printf("Welcome to our ciphers\n");
-	cipher_t* cipher = (cipher_t*)malloc(sizeof(cipher_t*));
-	cipher[0] = NULL;
+	cipher_t* cipher = new cipher_t;
 	while (1) {
 
 		printf("Enter command you want to execute(0 for help) > ");
