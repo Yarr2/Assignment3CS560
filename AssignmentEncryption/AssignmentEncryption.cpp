@@ -34,6 +34,7 @@ void process_command(int command, cipher_t*& cipher) {
 			break;
 		}
 		case 2:
+		{
 			printf("Vigener cipher\n");
 			std::string key;
 			printf("Enter key for Vigenere cipher > ");
@@ -41,6 +42,15 @@ void process_command(int command, cipher_t*& cipher) {
 			cipher_destroy(cipher);
 			cipher = cipher_create_vigenere(key.c_str());
 			break;
+			}
+		case 3: {
+			printf("XOR cipher\n");
+			std::string key;
+			printf("Enter key for XOR cipher > ");
+			std::cin >> key;
+			cipher_destroy(cipher);
+			cipher = cipher_create_xor(key.c_str());
+		}
 		}
 		cipher_free(text);
 		break;
@@ -84,6 +94,7 @@ int main()
 {
 	printf("Welcome to our ciphers\n");
 	cipher_t* cipher = new cipher_t;
+	cipher[0] = NULL;
 	while (1) {
 
 		printf("Enter command you want to execute(0 for help) > ");

@@ -5,6 +5,7 @@
 #include "Cipher.h"
 #include "CeaserCipher.h"
 #include "VigenereCipher.h"
+#include "XORCipher.h"
 
 
 void testing() {
@@ -31,7 +32,9 @@ cipher_t* cipher_create_caesar(int key) {
 cipher_t* cipher_create_vigenere(const char* text) {
 	return (cipher_t*)(new VigenereCipher(text));
 }
-
+cipher_t* cipher_create_xor(const char* text) {
+	return (cipher_t*)(new XORCipher(text));
+}
 char* cipher_encrypt(cipher_t* cipher, const char* text) {
 	Cipher* temp_cipher = (Cipher*)cipher;
 	std::string temp_string = temp_cipher->encrypt(text);
