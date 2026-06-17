@@ -3,22 +3,110 @@
 
 #include <iostream>
 #include "Ciphers.h"
+#include <string>
+
+
+void process_command(int command, cipher_t*& cipher) {
+
+	char* text = new char[100];
+	switch (command) {
+	case 0:
+		printf("Help\n");
+		cipher_free(text);
+		break;
+	case 1:
+	{
+		printf("Create cipher:\n");
+		printf("Choose cipher:\n\n");
+		printf("1. Ceaser cipher\n");
+		printf("2. Vigener cipher\n\n");
+		printf("Choose your cipher > ");
+		int variant = 0;
+		std::cin >> variant;
+		switch (variant) {
+		case 1:
+		{
+			printf("Input key for Ceaser cipher > ");
+			int key = 0;
+			std::cin >> key;
+			cipher_destroy(cipher);
+			cipher = cipher_create_caesar(key);
+			break;
+		}
+		case 2:
+			printf("Vigener cipher\n");
+			std::string key;
+			printf("Enter key for Vigenere cipher > ");
+			std::cin >> key;
+			cipher_destroy(cipher);
+			cipher = cipher_create_vigenere(key.c_str());
+			break;
+		}
+		cipher_free(text);
+		break;
+	}
+	case 2:
+	{
+		if (cipher[0] == NULL) {
+			printf("There is no cipher set up\n");
+			return;
+		}
+		printf("Encrypt message\n");
+		printf("Message > ");
+		std::cin.getline(text, 100);
+		char* encrypted_text = cipher_encrypt(cipher, text);
+		std::cout << "Encrypted text - " << encrypted_text << "\n";
+		cipher_free(encrypted_text);
+		break;
+	}
+	case 3:
+	{
+		if (cipher[0] == NULL) {
+			printf("There is no cipher set up\n");
+			return;
+		}
+		printf("Decrypt message\n");
+		printf("Message > ");
+		std::cin.getline(text, 100);
+		char* decrypted_text = cipher_decrypt(cipher, text);
+		std::cout << "Decrypted text - " << decrypted_text << "\n";
+		cipher_free(decrypted_text);
+		break;
+	}
+	default:
+		printf("There is no such command\n");
+		break;
+	}
+}
+
+
 int main()
 {
-    std::cout << "Hello World!\n";
-	std::cout << "Testing";
-	cipher_t* cipher = cipher_create_vigenere("KEY");
-	
-	char* string = cipher_encrypt(cipher, "Hello, World!");
-	std::cout << "\n" << string << "\n";
+	printf("Welcome to our ciphers\n");
+	cipher_t* cipher = (cipher_t*)malloc(sizeof(cipher_t*));
+	cipher[0] = NULL;
+	while (1) {
 
+		printf("Enter command you want to execute(0 for help) > ");
+		int command = -1;
+		scanf_s("%d", &command);
+		char character;
+		scanf_s("%c", &character, 1);
+		if (character == 'P') {
+			cipher_destroy(cipher);
+			printf("Program exited\n");
+			return 0;
+		}
+		while (character != '\n')
+		{
+			scanf_s("%c", &character, 1);
+		}
 
-	char* decrypted_string = cipher_decrypt(cipher, string);
-	std::cout << "\n" << decrypted_string << "\n";
-
+		process_command(command, cipher);
+	}
 	cipher_destroy(cipher);
-	cipher_free(string);
-    std::cout << "End of program" << "\n";
+	return 0;
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
